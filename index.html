@@ -19,7 +19,7 @@
   <h2>Yavuz & Neslihan<br>Wedding Hatıra Alanı</h2>
 
   <input type="text" id="name" placeholder="Ad Soyad" required>
-  <input type="file" id="photos" accept="image/*" multiple>
+  <input type="file" id="photos" multiple accept="image/*" onchange="if(this.files.length>5){alert('En fazla 5 fotoğraf yükleyebilirsiniz'); this.value='';}">
 
   <button onclick="upload()">Fotoğrafları Yükle</button>
   <div class="msg" id="msg"></div>
@@ -72,4 +72,5 @@ function upload() {
 </script>
 
 </body>
+
 </html>
