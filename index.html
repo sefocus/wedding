@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>Yavuz & Neslihan Wedding Hatıra Alanı</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial, sans-serif; background:#f7f7f7; padding:20px }
+    .box { max-width:400px; margin:auto; background:#fff; padding:20px; border-radius:10px }
+    h2 { text-align:center }
+    input, button { width:100%; padding:10px; margin-top:10px }
+    button { background:#000; color:#fff; border:none; border-radius:5px }
+    .msg { margin-top:15px; text-align:center }
+  </style>
+</head>
+<body>
+
+<div class="box">
+  <h2>Yavuz & Neslihan<br>Wedding Hatıra Alanı</h2>
+
+  <input type="text" id="name" placeholder="Ad Soyad" required>
+  <input type="file" id="photos" accept="image/*" multiple>
+
+  <button onclick="upload()">Fotoğrafları Yükle</button>
+  <div class="msg" id="msg"></div>
+</div>
+
+<script>
+const API_KEY = "bfe05935f11652eb8cde3dce47d36224";
+const MAX_PHOTOS = 5;
+
+function upload() {
+  const name = document.getElementById("name").value.trim();
+  const files = document.getElementById("photos").files;
+  const msg = document.getElementById("msg");
+
+  const now = new Date();
+  const start = new Date("2026-06-27T00:00:00");
+  const end = new Date("2026-06-28T00:00:00");
+
+  if (now < start || now > end) {
+    msg.innerText = "Fotoğraf yükleme süresi sona ermiştir. Katılımınız için teşekkür ederiz.";
+    return;
+  }
+
+  if (!name) {
+    msg.innerText = "Lütfen ad soyad giriniz.";
+    return;
+  }
+
+  if (files.length === 0 || files.length > MAX_PHOTOS) {
+    msg.innerText = "En fazla 5 fotoğraf yükleyebilirsiniz.";
+    return;
+  }
+
+  msg.innerText = "Yükleniyor...";
+
+  Array.from(files).forEach(file => {
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("name", name);
+
+    fetch(`https://api.imgbb.com/1/upload?key=${API_KEY}`, {
+      method: "POST",
+      body: formData
+    })
+    .then(res => res.json())
+    .then(() => msg.innerText = "Fotoğraflar başarıyla yüklendi 🎉")
+    .catch(() => msg.innerText = "Hata oluştu.");
+  });
+}
+</script>
+
+</body>
+</html>
