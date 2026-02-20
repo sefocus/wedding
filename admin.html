@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Admin Panel | Yavuz & Neslihan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .box {
+      background: #fff;
+      padding: 30px;
+      border-radius: 8px;
+      width: 320px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background: black;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    .error {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
 
+<div class="box" id="loginBox">
+  <h2>Admin Girişi</h2>
+  <input type="text" id="username" placeholder="Kullanıcı adı">
+  <input type="password" id="password" placeholder="Şifre">
+  <button onclick="login()">Giriş Yap</button>
+  <div class="error" id="error"></div>
+</div>
+
+<div class="box" id="panel" style="display:none">
+  <h2>Admin Panel</h2>
+  <p>Fotoğraflar burada listelenecek 📸</p>
+  <p>(Bir sonraki adımda bağlayacağız)</p>
+</div>
+
+<script>
+  const ADMIN_USER = "yavuzadmin";
+  const ADMIN_PASS = "Howruyst94."; // 👈 BURAYI İSTEDİĞİN ŞİFRE YAP
+
+  function login() {
+    const u = document.getElementById("username").value;
+    const p = document.getElementById("password").value;
+
+    if (u === ADMIN_USER && p === ADMIN_PASS) {
+      document.getElementById("loginBox").style.display = "none";
+      document.getElementById("panel").style.display = "block";
+    } else {
+      document.getElementById("error").innerText = "Hatalı giriş!";
+    }
+  }
+</script>
+
+</body>
+</html>
