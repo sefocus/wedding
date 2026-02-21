@@ -74,32 +74,30 @@
     }
   }
 </script>
-  <script>
-const CLOUD_NAME = "dr8vx5dlj";
-const FOLDER = "wedding";
+<script>
+function loadPhotos() {
+  const list = document.getElementById("photoList");
+  const photos = JSON.parse(localStorage.getItem("weddingPhotos")) || [];
 
-fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${FOLDER}.json`)
-  .then(res => res.json())
-  .then(data => {
-    const list = document.getElementById("photoList");
-    if (!data.resources || data.resources.length === 0) {
-      list.innerHTML = "<p>Henüz fotoğraf yok</p>";
-      return;
-    }
+  list.innerHTML = "";
 
-    data.resources.forEach(img => {
-      const el = document.createElement("img");
-      el.src = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_300/${img.public_id}.jpg`;
-      el.style.margin = "10px";
-      el.style.borderRadius = "8px";
-      list.appendChild(el);
-    });
-  })
-  .catch(err => {
-    console.error(err);
-    document.getElementById("photoList").innerText =
-      "Fotoğraflar yüklenemedi (Cloudinary ayarı kontrol edin)";
+  if (photos.length === 0) {
+    list.innerHTML = "<p>Henüz fotoğraf yok.</p>";
+    return;
+  }
+
+  photos.forEach(p => {
+    const box = document.createElement("div");
+    box.style.marginBottom = "15px";
+
+    box.innerHTML = `
+      <strong>${p.name}</strong><br>
+      <img src="${p.url}" style="max-width:200px;border-radius:8px;">
+    `;
+
+    list.appendChild(box);
   });
+}
 </script>
 </body>
 </html>
