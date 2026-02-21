@@ -53,6 +53,7 @@
 
 <div class="box" id="panel" style="display:none">
   <h2>Admin Panel</h2>
+  <div id="photoList" style="margin-top:20px;"></div>
   <p>Fotoğraflar burada listelenecek 📸</p>
   <p>(Bir sonraki adımda bağlayacağız)</p>
 </div>
@@ -94,6 +95,33 @@ fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/wedding.json`)
         container.appendChild(el);
     });
 });
+</script>
+  <script>
+const CLOUD_NAME = "dr8vx5dlj";
+const FOLDER = "wedding";
+
+fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/${FOLDER}.json`)
+  .then(res => res.json())
+  .then(data => {
+    const list = document.getElementById("photoList");
+    if (!data.resources || data.resources.length === 0) {
+      list.innerHTML = "<p>Henüz fotoğraf yok</p>";
+      return;
+    }
+
+    data.resources.forEach(img => {
+      const el = document.createElement("img");
+      el.src = `https://res.cloudinary.com/${CLOUD_NAME}/image/upload/w_300/${img.public_id}.jpg`;
+      el.style.margin = "10px";
+      el.style.borderRadius = "8px";
+      list.appendChild(el);
+    });
+  })
+  .catch(err => {
+    console.error(err);
+    document.getElementById("photoList").innerText =
+      "Fotoğraflar yüklenemedi (Cloudinary ayarı kontrol edin)";
+  });
 </script>
 </body>
 </html>
