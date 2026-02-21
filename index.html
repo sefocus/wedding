@@ -34,13 +34,16 @@ function upload() {
   const files = document.getElementById("photos").files;
   const msg = document.getElementById("msg");
 
-  const now = new Date();
-  const start = new Date("2026-06-27T00:00:00");
-  const end = new Date("2026-06-28T00:00:00");
+ const TEST_MODE = true;
 
-  if (now < start || now > end) {
+const now = new Date();
+const start = new Date("2026-06-27T00:00:00");
+const end = new Date("2026-06-28T00:00:00");
+
+if (!TEST_MODE && (now < start || now > end)) {
     msg.innerText = "Fotoğraf yükleme süresi sona ermiştir. Katılımınız için teşekkür ederiz.";
     return;
+
   }
 
   if (!name) {
@@ -131,6 +134,7 @@ document.getElementById("uploadForm").addEventListener("submit", async function(
 </body>
 
 </html>
+
 
 
 
