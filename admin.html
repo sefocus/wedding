@@ -74,28 +74,6 @@
     }
   }
 </script>
-<script>
-const CLOUD_NAME = "dr8vx5dlj";
-
-fetch(`https://res.cloudinary.com/${CLOUD_NAME}/image/list/wedding.json`)
-  .then(res => res.json())
-  .then(data => {
-    const container = document.getElementById("photos");
-    if (!data.resources) {
-        container.innerHTML = "Henüz fotoğraf yok";
-        return;
-    }
-
-    data.resources.forEach(img => {
-        const el = document.createElement("img");
-        el.src = img.secure_url;
-        el.style.width = "200px";
-        el.style.margin = "10px";
-        el.style.borderRadius = "10px";
-        container.appendChild(el);
-    });
-});
-</script>
   <script>
 const CLOUD_NAME = "dr8vx5dlj";
 const FOLDER = "wedding";
