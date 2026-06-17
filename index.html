@@ -79,51 +79,7 @@ if (!TEST_MODE && (now < start || now > end)) {
 //}
 </script>
 
-<script>
-const CLOUD_NAME = "dr8vx5dlj";
 
-const UPLOAD_PRESET = "wedding_upload";
-const MAX_FILES = 5;
-const TEST_MODE = true; // false yaparsan tarih kontrolü aktif olur
-
-document.getElementById("uploadForm").addEventListener("submit", async function(e) {
-    e.preventDefault();
-
-    const name = document.getElementById("guestName").value.trim();
-    const files = document.getElementById("photos").files;
-
-    if (!name) {
-        alert("Lütfen isim giriniz");
-        return;
-    }
-
-    if (files.length === 0) {
-        alert("En az 1 fotoğraf seçmelisiniz");
-        return;
-    }
-
-    if (files.length > MAX_FILES) {
-        alert("En fazla 5 fotoğraf yükleyebilirsiniz");
-        return;
-    }
-
-    for (let file of files) {
-        const formData = new FormData();
-        formData.append("file", file);
-        formData.append("upload_preset", UPLOAD_PRESET);
-        formData.append("folder", "wedding/" + name);
-
-        await fetch(`https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`, {
-            method: "POST",
-            body: formData
-        });
-    }
-
-    alert("Fotoğraflar başarıyla yüklendi 🎉");
-    document.getElementById("uploadForm").reset();
-});
-</script>
-</body>
 
 </html>
 
