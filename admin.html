@@ -163,8 +163,14 @@ card.innerHTML = `
 <img src="${data.photoUrl}">
 <div class="info">
 <b>${data.name}</b><br>
-${data.date}
+${data.date}<br><br>
+
+<a href="${data.photoUrl}" download target="_blank">
+<button>📥 İndir</button>
+</a>
+
 </div>
+`;
 `;
 
 gallery.appendChild(card);
